@@ -1,14 +1,18 @@
-# Resmi PHP ve Apache sürümünü kullan
 FROM php:8.2-apache
 
-# Gerekli PHP eklentilerini kur (Örn: MySQL bağlantısı için mysqli)
+# PHP eklentileri
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Apache mod_rewrite'ı aktifleştir (SEO dostu URL kullanıyorsan gerekli)
+# mod_rewrite
 RUN a2enmod rewrite
 
-# Proje dosyalarını sunucuya kopyala
+# DocumentRoot’u public olarak ayarla
+RUN sed -i 's#/var/www/html#/var/www/html/public#g' /etc/apache2/sites-available/000-default.conf
+
+# Projeyi kopyala
 COPY . /var/www/html/
 
-# Port 80'i dışarıya aç
+# .htaccess çalışsın
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+
 EXPOSE 80
