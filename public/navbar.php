@@ -4,14 +4,35 @@ $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
 <style>
-    /* --- NAVİGASYON STİLİ --- */
-    .floating-nav {
+    /* --- YENİ TAŞIYICI (WRAPPER) --- */
+    /* Konumlama işlemlerini artık bu sınıf yapıyor */
+    .nav-wrapper {
         position: absolute;
         top: 20px;
         left: 50%;
         transform: translateX(-50%);
         z-index: 9999;
-        /* Haritanın ve diğer panellerin üstünde */
+        display: flex;
+        flex-direction: column;
+        /* Alt alta diz */
+        align-items: center;
+        /* Ortala */
+        gap: 12px;
+        /* Logo ile Menü arasındaki boşluk */
+    }
+
+    /* --- LOGO STİLİ --- */
+    .nav-logo {
+        height: 40px;
+        /* Logo yüksekliğini buradan ayarlayabilirsin */
+        width: auto;
+        /* İsteğe bağlı: Logo arkasına hafif gölge veya filtre */
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    /* --- NAVİGASYON STİLİ (GÜNCELLENDİ) --- */
+    .floating-nav {
+        /* position, top, left sildik çünkü artık wrapper yönetiyor */
         background: rgba(255, 255, 255, 0.9);
         backdrop-filter: blur(10px);
         padding: 6px;
@@ -49,42 +70,54 @@ $current_page = basename($_SERVER['PHP_SELF']);
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
-    /* Mobil Uyumluluk (Ekran küçülürse taşmasın) */
+    /* Mobil Uyumluluk */
     @media (max-width: 1000px) {
-        .floating-nav {
+        .nav-wrapper {
             top: auto;
             bottom: 30px;
-            /* Mobilde aşağı al */
+            /* Mobilde tüm yapıyı aşağı al */
+            width: 90%;
+            /* Mobilde genişlik ayarı */
+        }
+
+        .floating-nav {
             flex-wrap: wrap;
             justify-content: center;
-            width: 90%;
+            width: 100%;
         }
     }
 </style>
 
-<div class="floating-nav">
-    <a href="TransactionsCount.php" class="nav-item <?= $current_page == 'TransactionsCount.php' ? 'active' : '' ?>">
-        Satış Analizi
-    </a>
+<div class="nav-wrapper" style="margin-top: 1.5em;">
 
-    <a href="TransactionsAverage.php" class="nav-item <?= $current_page == 'TransactionsAverage.php' ? 'active' : '' ?>">
-        Ort. Fiyat Analizi
-    </a>
+    <img src="logo.svg" alt="Logo" class="nav-logo">
 
-    <a href="TransactionsSqm.php" class="nav-item <?= $current_page == 'TransactionsSqm.php' ? 'active' : '' ?>">
-        m² Fiyatı Analizi
-    </a>
+    <div class="floating-nav">
 
-    <div style="width:1px; background:#cbd5e1; margin:0 5px;"></div>
-    <a href="ProjectsCount.php" class="nav-item <?= $current_page == 'ProjectsCount.php' ? 'active' : '' ?>">
-        Proje Adedi
-    </a>
+        <a href="TransactionsCount.php" class="nav-item <?= $current_page == 'TransactionsCount.php' ? 'active' : '' ?>">
+            Satış Analizi
+        </a>
 
-    <a href="ProjectAverage.php" class="nav-item <?= $current_page == 'ProjectAverage.php' ? 'active' : '' ?>">
-        Proje Değerleri
-    </a>
+        <a href="TransactionsAverage.php" class="nav-item <?= $current_page == 'TransactionsAverage.php' ? 'active' : '' ?>">
+            Ort. Fiyat Analizi
+        </a>
 
-    <a href="ProjectDeveloper.php" class="nav-item <?= $current_page == 'ProjectDeveloper.php' ? 'active' : '' ?>">
-        Geliştiriciler
-    </a>
+        <a href="TransactionsSqm.php" class="nav-item <?= $current_page == 'TransactionsSqm.php' ? 'active' : '' ?>">
+            m² Fiyatı Analizi
+        </a>
+
+        <div style="width:1px; background:#cbd5e1; margin:0 5px;"></div>
+
+        <a href="ProjectsCount.php" class="nav-item <?= $current_page == 'ProjectsCount.php' ? 'active' : '' ?>">
+            Proje Adedi
+        </a>
+
+        <a href="ProjectAverage.php" class="nav-item <?= $current_page == 'ProjectAverage.php' ? 'active' : '' ?>">
+            Proje Değerleri
+        </a>
+
+        <a href="ProjectDeveloper.php" class="nav-item <?= $current_page == 'ProjectDeveloper.php' ? 'active' : '' ?>">
+            Geliştiriciler
+        </a>
+    </div>
 </div>
