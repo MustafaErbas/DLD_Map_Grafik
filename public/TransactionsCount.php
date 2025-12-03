@@ -24,11 +24,13 @@
 
         #map-container {
             position: absolute;
-            top: 50%;
+            /* Haritayı biraz aşağı aldık (50% yerine 54%) */
+            top: 54%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 94vw;
-            height: 92vh;
+            /* Harita boyunu biraz kıstık ki üstte yer açılsın (92vh yerine 85vh) */
+            height: 85vh;
             background: white;
             border-radius: 20px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -203,10 +205,52 @@
             opacity: 1;
             border-radius: 4px;
         }
+
+        .site-logo {
+            position: absolute;
+            top: 15px;
+            /* En tepeden boşluk */
+            left: 50%;
+            transform: translateX(-50%);
+            height: 40px;
+            /* Logo boyutu */
+            width: auto;
+            z-index: 2000;
+            /* Her şeyin en üstünde (Map:1, Panel:1000) */
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+            /* Hafif gölge */
+        }
+
+        /* --- NAVBAR'I AŞAĞI İTME --- */
+        /* Navbar.php içindeki stile müdahale ediyoruz */
+        .floating-nav,
+        .nav-wrapper {
+            top: 65px !important;
+            /* Logunun altına gelmesi için aşağı ittik */
+        }
+
+        /* Mobilde düzenleme */
+        @media (max-width: 1000px) {
+
+            .floating-nav,
+            .nav-wrapper {
+                top: auto !important;
+                bottom: 30px !important;
+                /* Mobilde tekrar aşağı al */
+            }
+
+            /* Mobilde haritayı biraz büyütebiliriz */
+            #map-container {
+                height: 90vh;
+                top: 50%;
+            }
+        }
     </style>
 </head>
 
 <body>
+
+    <img src="logo.svg" alt="Dubai Analiz Logo" class="site-logo">
 
     <?php include 'navbar.php'; ?>
 
